@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 // 3. Avoid rebuilding widgets repetitively using `ValueNotifier` instead of `setState`.
 // Refs:
 // https://blog.codemagic.io/how-to-improve-the-performance-of-your-flutter-app./
-// https://habr.com/ru/articles/502882/#ne-ispolzuyte-vidzhet-opacity-v-animaciyah
+// https://habr.com/ru/articles/502882/#izbegayte-povtornyh-perestroeniy-vseh-vidzhetov
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
