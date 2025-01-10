@@ -27,7 +27,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _onPressed() {
-    int randomNumber = _random.nextInt(30);
+    final randomNumber = _random.nextInt(30);
     _colorNotifier.value = Colors.primaries[randomNumber % Colors.primaries.length];
   }
 
@@ -35,10 +35,6 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     print('building `MyHomePage`');
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: _onPressed,
-        child: const Icon(Icons.colorize),
-      ),
       body: Stack(
         children: [
           const Positioned.fill(
@@ -55,6 +51,10 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
         ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: _onPressed,
+        child: const Icon(Icons.colorize),
       ),
     );
   }

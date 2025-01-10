@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 // 5. Avoid rebuilding unnecessary widgets inside `AnimatedBuilder` using `child` prop.
 // Refs:
 // https://blog.codemagic.io/how-to-improve-the-performance-of-your-flutter-app./
-// https://habr.com/ru/articles/502882/#ne-ispolzuyte-vidzhet-opacity-v-animaciyah
+// https://habr.com/ru/articles/502882/#izbegayte-nenuzhnyh-perestroeniy-vidzhetov-vnutri-animatedbuilder
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -42,24 +42,23 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      body: AnimatedBuilder(
+        animation: _controller,
+        // GOOD
+        // Use `child` prop to avoid rebuilding unnecessary widgets during animation.
+        child: _CounterWidget(counter: counter),
+        builder: (_, child) => Transform(
+          alignment: Alignment.center,
+          transform: Matrix4.identity()
+            ..setEntry(3, 2, 0.001)
+            ..rotateY(360 * _controller.value * (pi / 180.0)),
+          child: child,
+        ),
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: _onPressed,
         splashColor: Colors.red,
         child: const Icon(Icons.slow_motion_video),
-      ),
-      body: AnimatedBuilder(
-        animation: _controller,
-        // GOOD
-        child: _CounterWidget(counter: counter),
-        builder: (_, child) {
-          return Transform(
-            alignment: Alignment.center,
-            transform: Matrix4.identity()
-              ..setEntry(3, 2, 0.001)
-              ..rotateY(360 * _controller.value * (pi / 180.0)),
-            child: child,
-          );
-        },
       ),
     );
   }

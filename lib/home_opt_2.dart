@@ -21,8 +21,9 @@ class _HomePageState extends State<HomePage> {
   Color _currentColor = Colors.grey;
 
   void _onPressed() {
+    final randomNumber = _random.nextInt(30);
     setState(() {
-      _currentColor = Colors.primaries[_random.nextInt(30) % Colors.primaries.length];
+      _currentColor = Colors.primaries[randomNumber % Colors.primaries.length];
     });
   }
 
@@ -30,10 +31,6 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     print('building `HomePage`');
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: _onPressed,
-        child: const Icon(Icons.colorize),
-      ),
       body: Stack(
         children: [
           const Positioned.fill(
@@ -47,6 +44,10 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
         ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: _onPressed,
+        child: const Icon(Icons.colorize),
       ),
     );
   }
