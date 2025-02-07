@@ -4,7 +4,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
-// 2. Avoid rebuilding certain widgets repetitively using `const` keyword.
+// 2. Avoid rebuilding certain widgets unnecessarily using `const` keyword.
 // Refs:
 // https://blog.codemagic.io/how-to-improve-the-performance-of-your-flutter-app./
 // https://habr.com/ru/articles/502882/#ispolzuyte-const
@@ -29,13 +29,11 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    print('building `HomePage`');
+    print('build `HomePage`');
     return Scaffold(
       body: Stack(
         children: [
-          const Positioned.fill(
-            child: _BackgroundWidget(),
-          ),
+          const _BackgroundWidget(),
           Center(
             child: Container(
               height: 150,
@@ -62,10 +60,12 @@ class _BackgroundWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('building `_BackgroundWidget`');
-    return Image.network(
-      'https://cdn.pixabay.com/photo/2017/08/30/01/05/milky-way-2695569_960_720.jpg',
-      fit: BoxFit.cover,
+    print('build `_BackgroundWidget`');
+    return Positioned.fill(
+      child: Image.network(
+        'https://cdn.pixabay.com/photo/2017/08/30/01/05/milky-way-2695569_960_720.jpg',
+        fit: BoxFit.cover,
+      ),
     );
   }
 }

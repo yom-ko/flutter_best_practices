@@ -23,7 +23,10 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(vsync: this, duration: const Duration(milliseconds: 600));
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 600),
+    );
   }
 
   @override
@@ -33,9 +36,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
   }
 
   void _onPressed() {
-    setState(() {
-      counter++;
-    });
+    setState(() => counter++);
     _controller.forward(from: 0.0);
   }
 
@@ -45,7 +46,8 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
       body: AnimatedBuilder(
         animation: _controller,
         // GOOD
-        // Use `child` prop to avoid rebuilding unnecessary widgets during animation.
+        // Use the `child` property to prevent rebuilding
+        // certain widgets on every animation tick.
         child: _CounterWidget(counter: counter),
         builder: (_, child) => Transform(
           alignment: Alignment.center,
@@ -71,7 +73,7 @@ class _CounterWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('building `_CounterWidget`');
+    print('build `_CounterWidget`');
     return Center(
       child: Text(
         counter.toString(),

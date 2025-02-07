@@ -4,7 +4,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
-// 3. Avoid rebuilding widgets repetitively using `ValueNotifier` instead of `setState`.
+// 3. Avoid rebuilding widgets unnecessarily using `ValueNotifier` instead of `setState`.
 // Refs:
 // https://blog.codemagic.io/how-to-improve-the-performance-of-your-flutter-app./
 // https://habr.com/ru/articles/502882/#izbegayte-povtornyh-perestroeniy-vseh-vidzhetov
@@ -33,21 +33,22 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    print('building `MyHomePage`');
+    print('build `MyHomePage`');
     return Scaffold(
       body: Stack(
         children: [
-          const Positioned.fill(
-            child: _BackgroundWidget(),
-          ),
+          const _BackgroundWidget(),
           Center(
             child: ValueListenableBuilder(
               valueListenable: _colorNotifier,
-              builder: (_, value, __) => Container(
-                height: 150,
-                width: 150,
-                color: value,
-              ),
+              builder: (_, value, __) {
+                print('build `Container`');
+                return Container(
+                  height: 150,
+                  width: 150,
+                  color: value,
+                );
+              },
             ),
           ),
         ],
@@ -65,10 +66,12 @@ class _BackgroundWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('building `_BackgroundWidget`');
-    return Image.network(
-      'https://cdn.pixabay.com/photo/2017/08/30/01/05/milky-way-2695569_960_720.jpg',
-      fit: BoxFit.cover,
+    print('build `_BackgroundWidget`');
+    return Positioned.fill(
+      child: Image.network(
+        'https://cdn.pixabay.com/photo/2017/08/30/01/05/milky-way-2695569_960_720.jpg',
+        fit: BoxFit.cover,
+      ),
     );
   }
 }
